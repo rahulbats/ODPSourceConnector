@@ -53,7 +53,7 @@ plugin.path=/usr/local/share/kafka/plugins
 To install a plugin, place the plugin directory or uber JAR (or a symbolic link that resolves to one of these) in a directory already listed in the plugin path. You can update the plugin path by adding the absolute path of the directory containing the plugin. 
 Using the plugin path example above, you would create a /usr/local/share/kafka/plugins directory on each machine running Connect and then place the plugin directories (or uber JARs) there.
 When you start your Connect workers, each worker discovers all connectors, transforms, and converter plugins found inside the directories on the plugin path. 
-In the same plugins directory you will also have to add the SAP jco jar which you can download from [here](https://support.sap.com/en/product/connectors/jco.html) 
+In the same plugins directory you will also have to add the SAP jco jar(SAP Java Connector) which you can download from [here](https://support.sap.com/en/product/connectors/jco.html) 
 
 ## Connector Configs
 
