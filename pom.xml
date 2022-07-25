@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.confluent</groupId>
+    <artifactId>ODPSAPSourceConnector</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>ODPSAPSourceConnector</name>
+
+    <properties>
+        <kafka.version>0.10.2.0</kafka.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-api</artifactId>
+            <version>${kafka.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.jco</groupId>
+            <artifactId>sapjco</artifactId>
+            <version>3.0.14</version>
+            <scope>system</scope>
+            <systemPath>/Users/rahul/Downloads/sapjco3.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/package.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.confluent</groupId>
+                <version>0.10.0</version>
+                <artifactId>kafka-connect-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>kafka-connect</goal>
+                        </goals>
+                        <configuration>
+                            <title>Kafka Connect SAP ODP</title>
+                            <documentationUrl>https://github.com/rahulbats/ODPSourceConnector</documentationUrl>
+                            <description>
+                                SAP ODP source connector allows moving data from SAP ODP to Kafka.
+                            </description>
+
+
+
+
+                            <ownerUsername>rahulbats</ownerUsername>
+                            <ownerType>user</ownerType>
+                            <ownerName>Rahul Bhattacharya</ownerName>
+                            <ownerUrl>https://github.com/rahulbats</ownerUrl>
+
+
+                            <licenses>
+                                <license>
+                                    <name>Apache License, Version 2.0</name>
+                                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                                </license>
+                            </licenses>
+
+                            <componentTypes>
+                                <componentType>source</componentType>
+                            </componentTypes>
+
+                            <tags>
+                                <tag>SAP</tag>
+                                <tag>ODP</tag>
+                                <tag>analytics</tag>
+                            </tags>
+
+                            <deliveryGuarantee>
+                                <deliveryGuarantee>exactlyOnce</deliveryGuarantee>
+                            </deliveryGuarantee>
+
+                            <confluentControlCenterIntegration>true</confluentControlCenterIntegration>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+</project>
